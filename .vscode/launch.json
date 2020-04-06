@@ -10,7 +10,7 @@
             ],
             "program": "${workspaceFolder}/src/server.ts",
             "args": [
-                "--stdio",
+                "--stdio"
             ],
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
