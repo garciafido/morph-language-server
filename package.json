@@ -1,5 +1,5 @@
 {
-	"name": "lsp-morph-server",
+	"name": "morph-language-server",
 	"description": "Morph server in node.",
 	"version": "1.0.0",
 	"author": "Fido Garcia",
