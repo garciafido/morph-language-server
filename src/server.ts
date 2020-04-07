@@ -182,7 +182,7 @@ async function validateMorphDocument(morphDocument: TextDocument): Promise<void>
 						uri: morphDocument.uri,
 						range: Object.assign({}, diagnostic.range)
 					},
-					message: parsed
+					message: JSON.stringify(parsed, null, 4)
 				}
 			];
 		}
