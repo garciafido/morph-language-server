@@ -1,6 +1,8 @@
 {
 	"name": "morph-language-server",
-	"description": "Morph server in node.",
+	"displayName": "Morph",
+	"description": "Morph language server (LSP)",
+	"icon": "images/icon_agilmind.png",
 	"version": "1.0.0",
 	"author": "Fido Garcia",
 	"license": "MIT",
