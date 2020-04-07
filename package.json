@@ -21,10 +21,9 @@
 		"typescript": "^3.8.3"
 	},
 	"scripts": {
-		"postinstall": "npm run compile",
-		"compile": "tsc -b",
-		"watch": "tsc -b -w",
-		"test": "sh ./scripts/e2e.sh"
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p",
+		"watch": "tsc -w -p",
 	},
 	"dependencies": {
 		"path": "^0.12.7",
