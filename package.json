@@ -28,9 +28,9 @@
 	},
 	"dependencies": {
 		"path": "^0.12.7",
+		"tree-sitter": "^0.16.1",
 		"tree-sitter-morph": "github:morphlang/tree-sitter-morph",
 		"vscode-languageserver": "^6.1.1",
-		"vscode-languageserver-textdocument": "^1.0.1",
-		"web-tree-sitter": "^0.16.2"
+		"vscode-languageserver-textdocument": "^1.0.1"
 	}
 }
