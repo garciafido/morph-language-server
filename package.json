@@ -25,7 +25,8 @@
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -p",
-		"watch": "tsc -w -p"
+		"watch": "tsc -w -p",
+		"postinstall": "npm install"
 	},
 	"dependencies": {
 		"path": "^0.12.7",
