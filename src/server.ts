@@ -17,15 +17,10 @@ import {
 	TextDocumentSyncKind,
 	InitializeResult
 } from 'vscode-languageserver';
-
 import {
 	TextDocument
 } from 'vscode-languageserver-textdocument';
-
-import * as path from 'path';
-import * as Parser from 'web-tree-sitter'
-
-Parser.init();
+import {Parser} from "./Parser";
 
 
 // Create a connection for the server. The connection uses Node's IPC as a transport.
@@ -142,15 +137,6 @@ documents.onDidChangeContent(change => {
 	validateMorphDocument(change.document);
 });
 
-async function parse(sourceCode: string) {
-	let wasmFilePath = path.join(__dirname, '../parser', '/tree-sitter-morph.wasm');
-
-	const Morph = await Parser.Language.load(wasmFilePath);
-	const parser = new Parser;
-	parser.setLanguage(Morph);
-	const tree = parser.parse(sourceCode);
-	return tree.rootNode.toString();
-}
 
 async function validateMorphDocument(morphDocument: TextDocument): Promise<void> {
 	// In this simple example we get the settings for every validate run.
@@ -158,7 +144,7 @@ async function validateMorphDocument(morphDocument: TextDocument): Promise<void>
 
 	// The validator creates diagnostics for all uppercase words length 2 and more
 	const text = morphDocument.getText();
-	const parsed = await parse(text);
+	const parsed = Parser.parse(text);
 	const pattern = /\b[A-Z]{2,}\b/g;
 	let m: RegExpExecArray | null;
 
