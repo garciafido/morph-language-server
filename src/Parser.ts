@@ -3,6 +3,11 @@ import * as TreeSitterParser from 'web-tree-sitter'
 
 const LIST_POSTFIX = "__list";
 
+type parsedTree = {
+	type: any,
+	ERRORS: any[],
+}
+
 class MorphParser {
 	parser: TreeSitterParser | undefined;
 	error: string = "None errors";
@@ -31,11 +36,11 @@ class MorphParser {
 		);
 	}
 
-	getContent(node: any) {
+	private getContent(node: any) {
 		return this.sourceCode.substring(node.startIndex, node.endIndex);
 	}
 
-	traverse(node: any): any {
+	private traverse(node: any): any {
 		const type = node.type;
 		const NewNode = {
 			type: type === "decorators__list" ? "Decorator" : type === "identifier" ? "Identifier" : type,
@@ -92,7 +97,7 @@ class MorphParser {
 		return NewNode
 	}
 
-	parse(sourceCode: string) {
+	parse(sourceCode: string): parsedTree {
 		if (this.parser) {
 			this.sourceCode = sourceCode;
 			this.sourceCodeErrors = [];
@@ -100,7 +105,7 @@ class MorphParser {
 			const semanticTree = this.traverse(tree.rootNode);
 			semanticTree.ERRORS = this.sourceCodeErrors; 
 		}
-		return this.error;
+		return {type: "ERROR", ERRORS: [this.error]};
 	}
 }
 
