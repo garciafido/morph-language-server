@@ -23,9 +23,9 @@
 		"typescript": "^3.8.3"
 	},
 	"scripts": {
-		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p",
-		"watch": "tsc -w -p"
+		"prepare": "npm run compile",
+		"compile": "tsc -b",
+		"watch": "tsc -b --watch --verbose"
 	},
 	"dependencies": {
 		"path": "^0.12.7",
