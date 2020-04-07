@@ -153,10 +153,8 @@ async function validateMorphDocument(morphDocument: TextDocument): Promise<void>
 		let diagnostic: Diagnostic = {
 			severity: DiagnosticSeverity.Warning,
 			range: {
-				start: error.sourceFilePosition.start,
-				end: error.sourceFilePosition.end
-				// start: morphDocument.positionAt(error.sourceFilePosition.start),
-				// end: morphDocument.positionAt(error.sourceFilePosition.end)
+				start: morphDocument.positionAt(error.sourceFilePosition.start),
+				end: morphDocument.positionAt(error.sourceFilePosition.end)
 			},
 			message: `${error.value}`,
 			source: 'ex'
@@ -182,7 +180,7 @@ async function validateMorphDocument(morphDocument: TextDocument): Promise<void>
 						uri: morphDocument.uri,
 						range: Object.assign({}, diagnostic.range)
 					},
-					message: JSON.stringify(error, null, 4)
+					message: error.value
 				}
 			];
 		}
