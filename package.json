@@ -23,9 +23,8 @@
 		"typescript": "^3.8.3"
 	},
 	"scripts": {
-		"compile": "tsc -b",
-		"watch": "tsc -b --watch --verbose",
-		"postuninstall": "npm run compile"
+		"build": "tsc -b",
+		"watch": "tsc -b --watch --verbose"
 	},
 	"dependencies": {
 		"path": "^0.12.7",
