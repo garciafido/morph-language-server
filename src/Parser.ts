@@ -8,11 +8,22 @@ type parsedTree = {
 	ERRORS: any[],
 }
 
+type parsedNode = {
+	type: string;
+	value: string | undefined;
+	children: any | undefined;
+	sourceFilePosition: {
+		start: number;
+		end: number;
+	}
+
+}
+
 class MorphParser {
 	parser: TreeSitterParser | undefined;
-	error: string = "None errors";
+	error: string = "";
 	sourceCode: string = '';
-	sourceCodeErrors: any[] = [];
+	sourceCodeErrors: parsedNode[] = [];
 
 	constructor() {
 		const wasmFilePath = path.join(__dirname, '../parser', '/tree-sitter-morph.wasm');
@@ -42,9 +53,9 @@ class MorphParser {
 
 	private traverse(node: any): any {
 		const type = node.type;
-		const NewNode = {
+		const NewNode: parsedNode = {
 			type: type === "decorators__list" ? "Decorator" : type === "identifier" ? "Identifier" : type,
-			value: '',
+			value: undefined,
 			children: {},
 			sourceFilePosition: {
 				start: node.startPosition,
@@ -61,10 +72,15 @@ class MorphParser {
 		const NewChildren: any = {};
 		for (const child of children) {
 			let childType = child.type;
-			if (childType === 'ERROR') {
+			if (childType === "ERROR") {
 				const error = {
-					start: child.startPosition,
-					end: child.endPosition,
+					type: "ERROR",
+					value: this.getContent(node),
+					children: undefined,
+					sourceFilePosition: {
+						start: child.startPosition,
+						end: child.endPosition,
+					}
 				};
 				this.sourceCodeErrors.push(error);
 			}

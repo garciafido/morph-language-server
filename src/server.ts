@@ -145,20 +145,22 @@ async function validateMorphDocument(morphDocument: TextDocument): Promise<void>
 	// The validator creates diagnostics for all uppercase words length 2 and more
 	const text = morphDocument.getText();
 	const parsed = Parser.parse(text);
-	const pattern = /\b[A-Z]{2,}\b/g;
 	let m: RegExpExecArray | null;
 
 	let problems = 0;
 	let diagnostics: Diagnostic[] = [];
-	while ((m = pattern.exec(text)) && problems < settings.maxNumberOfProblems) {
+	for (const error of parsed.ERRORS) {
 		problems++;
+		if (problems < settings.maxNumberOfProblems) {
+			break;
+		}
 		let diagnostic: Diagnostic = {
 			severity: DiagnosticSeverity.Warning,
 			range: {
-				start: morphDocument.positionAt(m.index),
-				end: morphDocument.positionAt(m.index + m[0].length)
+				start: morphDocument.positionAt(error.sourceFilePosition.start),
+				end: morphDocument.positionAt(error.sourceFilePosition.end)
 			},
-			message: `${m[0]} is all uppercase.`,
+			message: `${error.value}`,
 			source: 'ex'
 		};
 		if (hasDiagnosticRelatedInformationCapability) {
@@ -182,7 +184,7 @@ async function validateMorphDocument(morphDocument: TextDocument): Promise<void>
 						uri: morphDocument.uri,
 						range: Object.assign({}, diagnostic.range)
 					},
-					message: JSON.stringify(parsed.ERRORS, null, 4)
+					message: JSON.stringify(error, null, 4)
 				}
 			];
 		}
