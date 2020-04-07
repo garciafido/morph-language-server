@@ -122,7 +122,17 @@ class MorphParser {
 			semanticTree.ERRORS = this.sourceCodeErrors; 
 			return semanticTree;
 		}
-		return {type: "ERROR", ERRORS: [this.error]};
+		return {type: "ERROR", ERRORS: [
+			{
+				type: "GENERAL ERROR",
+				value: this.error,
+				children: undefined,
+				sourceFilePosition: {
+					start: 0,
+					end: 10,
+				}
+			}
+		]};
 	}
 }
 
