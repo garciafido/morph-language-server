@@ -166,14 +166,7 @@ async function validateMorphDocument(morphDocument: TextDocument): Promise<void>
 						uri: morphDocument.uri,
 						range: Object.assign({}, diagnostic.range)
 					},
-					message: 'Spelling matters'
-				},
-				{
-					location: {
-						uri: morphDocument.uri,
-						range: Object.assign({}, diagnostic.range)
-					},
-					message: 'Particularly for names'
+					message: 'Syntax Error'
 				},
 				{
 					location: {
