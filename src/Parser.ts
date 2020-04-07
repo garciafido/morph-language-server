@@ -120,6 +120,7 @@ class MorphParser {
 			const tree = this.parser.parse(sourceCode);
 			const semanticTree = this.traverse(tree.rootNode);
 			semanticTree.ERRORS = this.sourceCodeErrors; 
+			return semanticTree;
 		}
 		return {type: "ERROR", ERRORS: [this.error]};
 	}
