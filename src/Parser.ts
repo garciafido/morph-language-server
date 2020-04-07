@@ -75,7 +75,7 @@ class MorphParser {
 			if (childType === "ERROR") {
 				const error = {
 					type: "ERROR",
-					value: this.sourceCode.substring(node.startIndex, node.endIndex),
+					value: this.getContent(child),
 					children: undefined,
 					sourceFilePosition: {
 						start: child.startIndex,
