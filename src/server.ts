@@ -139,26 +139,25 @@ documents.onDidChangeContent(change => {
 
 
 async function validateMorphDocument(morphDocument: TextDocument): Promise<void> {
-	// In this simple example we get the settings for every validate run.
-	let settings = await getDocumentSettings(morphDocument.uri);
-
-	// The validator creates diagnostics for all uppercase words length 2 and more
+	const settings = await getDocumentSettings(morphDocument.uri);
 	const text = morphDocument.getText();
 	const parsed = Parser.parse(text);
-	let m: RegExpExecArray | null;
+	console.log(`parsed: ${JSON.stringify(parsed)}`);
 
 	let problems = 0;
-	let diagnostics: Diagnostic[] = [];
+	const diagnostics: Diagnostic[] = [];
 	for (const error of parsed.ERRORS) {
 		problems++;
-		if (problems < settings.maxNumberOfProblems) {
+		if (problems > settings.maxNumberOfProblems) {
 			break;
 		}
 		let diagnostic: Diagnostic = {
 			severity: DiagnosticSeverity.Warning,
 			range: {
-				start: morphDocument.positionAt(error.sourceFilePosition.start),
-				end: morphDocument.positionAt(error.sourceFilePosition.end)
+				start: error.sourceFilePosition.start,
+				end: error.sourceFilePosition.end
+				// start: morphDocument.positionAt(error.sourceFilePosition.start),
+				// end: morphDocument.positionAt(error.sourceFilePosition.end)
 			},
 			message: `${error.value}`,
 			source: 'ex'
