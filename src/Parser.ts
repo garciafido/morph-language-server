@@ -16,7 +16,6 @@ type parsedNode = {
 		start: number;
 		end: number;
 	}
-
 }
 
 class MorphParser {
@@ -72,7 +71,7 @@ class MorphParser {
 		const NewChildren: any = {};
 		for (const child of children) {
 			let childType = child.type;
-			if (childType === "ERROR") {
+			if (childType === "ERROR" || childType === "MISSING") {
 				const error = {
 					type: "ERROR",
 					value: this.getContent(child),
