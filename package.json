@@ -3,7 +3,7 @@
 	"displayName": "Morph",
 	"description": "Morph language server (LSP)",
 	"icon": "images/icon_agilmind.png",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"author": "Fido Garcia",
 	"license": "MIT",
 	"engines": {
